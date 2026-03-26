@@ -96,7 +96,13 @@ export default function Kontakt() {
       id="kontakt"
       className="mesh-bg"
       style={{ paddingBlock: "var(--section-py)" }}>
-      <div className="container">
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "1800px",
+          marginInline: "auto",
+          paddingInline: "var(--section-px)",
+        }}>
         {/* ── Header ── */}
         <div style={{ marginBottom: "clamp(3rem,6vw,5rem)" }}>
           <p
@@ -130,9 +136,12 @@ export default function Kontakt() {
           style={{
             display: "grid",
             gridTemplateColumns:
-              "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+              "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
             gap: "clamp(3rem,6vw,7rem)",
             alignItems: "start",
+            maxWidth: "1400px",
+            marginInline: "auto",
+            width: "100%",
           }}>
           {/* ── Left: info ── */}
           <div>
@@ -241,9 +250,10 @@ export default function Kontakt() {
           {/* ── Right: form ── */}
           <div
             style={{
-              padding: "clamp(1.75rem,3.5vw,3rem)",
+              padding: "clamp(1.75rem,3.5vw,3.5rem)",
               border: "1px solid rgba(92,225,230,.13)",
               background: "rgba(15,22,24,.7)",
+              width: "100%",
             }}>
             {sent ? (
               <div

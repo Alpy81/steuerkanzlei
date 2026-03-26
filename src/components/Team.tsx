@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 const TEAM = [
   {
@@ -10,6 +11,7 @@ const TEAM = [
     spec: "Unternehmensbesteuerung, M&A, Holdingstrukturen",
     bio: "Dr. Weber gründete die Kanzlei nach 10 Jahren in einer internationalen Wirtschaftsprüfungsgesellschaft. Sein Fokus liegt auf strategischer Steuergestaltung für wachsende Unternehmen.",
     farbe: ["#146574", "#1a7d90"],
+    foto: "/images/portrait-mw.jpg",
   },
   {
     initials: "SH",
@@ -19,6 +21,7 @@ const TEAM = [
     spec: "Einkommensteuer, Immobilien, Freiberufler",
     bio: "Sandra Hoffmann ist Ansprechpartnerin für Privatpersonen und Selbstständige. Sie ist bekannt für ihre klare Kommunikation und dafür, komplexes Steuerrecht verständlich zu machen.",
     farbe: ["#1a7d90", "#5ce1e6"],
+    foto: "/images/portrait-sh.jpg",
   },
   {
     initials: "JB",
@@ -28,6 +31,7 @@ const TEAM = [
     spec: "Buchhaltung, Jahresabschluss, Lohnsteuer",
     bio: "Jonas Becker verantwortet die Finanzbuchhaltung und Jahresabschlüsse unserer Mandanten. Seine strukturierte Arbeitsweise sorgt für Genauigkeit und Zuverlässigkeit.",
     farbe: ["#0d4a56", "#146574"],
+    foto: "/images/portrait-jb.jpg",
   },
   {
     initials: "LR",
@@ -37,15 +41,17 @@ const TEAM = [
     spec: "Mandantenbetreuung, Finanzbuchhaltung",
     bio: "Lena Richter ist das erste Gesicht, das unsere Mandanten kennenlernen. Ihre freundliche, präzise Art macht die Zusammenarbeit unkompliziert und angenehm.",
     farbe: ["#146574", "#45e7ff"],
+    foto: "/images/portrait-lr.jpg",
   },
   {
-    initials: "PK",
-    name: "Patrick König",
-    role: "Steuerberater",
+    initials: "TK",
+    name: "Tanja König",
+    role: "Steuerberaterin",
     exp: "11 Jahre Erfahrung",
-    spec: "Internationales Steuerrecht, Doppelbesteuerung",
-    bio: "Patrick König ist spezialisiert auf grenzüberschreitende Steuerfragen. Er berät Unternehmen mit internationalen Aktivitäten sowie Privatpersonen, die im Ausland tätig sind oder aus dem Ausland nach Deutschland kommen.",
+    spec: "Internationales Steuerrecht, Expatriates, Doppelbesteuerung",
+    bio: "Tanja König ist spezialisiert auf grenzüberschreitende Steuerfragen. Sie berät Unternehmen mit internationalen Aktivitäten sowie Privatpersonen, die im Ausland tätig sind oder aus dem Ausland nach Deutschland kommen.",
     farbe: ["#1a7d90", "#45e7ff"],
+    foto: "/images/portrait-tk.jpg",
   },
 ];
 
@@ -54,6 +60,8 @@ export default function Team() {
   const [flipped, setFlipped] = useState<number | null>(null);
 
   const toggle = (i: number) => setFlipped(flipped === i ? null : i);
+
+  const CARD_H = "clamp(360px,34vw,460px)";
 
   return (
     <section
@@ -117,7 +125,7 @@ export default function Team() {
           style={{
             display: "grid",
             gridTemplateColumns:
-              "repeat(auto-fill, minmax(min(100%,260px),1fr))",
+              "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
             gap: "clamp(1rem,2vw,1.5rem)",
           }}>
           {TEAM.map((m, i) => {
@@ -131,9 +139,9 @@ export default function Team() {
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => toggle(i)}
                 style={{
-                  perspective: "1000px",
+                  perspective: "1200px",
                   cursor: "pointer",
-                  minHeight: "clamp(280px,30vw,360px)",
+                  height: CARD_H,
                 }}
                 role="button"
                 aria-label={`${m.name} – mehr erfahren`}
@@ -144,7 +152,6 @@ export default function Team() {
                     position: "relative",
                     width: "100%",
                     height: "100%",
-                    minHeight: "clamp(280px,30vw,360px)",
                     transformStyle: "preserve-3d",
                     transition: "transform .55s cubic-bezier(.4,0,.2,1)",
                     transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -155,7 +162,6 @@ export default function Team() {
                       position: "absolute",
                       inset: 0,
                       backfaceVisibility: "hidden",
-                      padding: "clamp(1.75rem,2.5vw,2.5rem)",
                       border: `1px solid ${
                         isHovered && !isFlipped
                           ? "rgba(92,225,230,.22)"
@@ -168,85 +174,109 @@ export default function Team() {
                       transition: "border-color .3s, background .3s",
                       display: "flex",
                       flexDirection: "column",
+                      overflow: "hidden",
                     }}>
-                    {/* Avatar */}
+                    {/* ── Foto ── */}
                     <div
                       style={{
-                        width: "clamp(60px,7vw,80px)",
-                        height: "clamp(60px,7vw,80px)",
-                        borderRadius: "50%",
-                        background: `linear-gradient(135deg,${m.farbe[0]},${m.farbe[1]})`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginBottom: "clamp(1.25rem,2vw,1.75rem)",
+                        position: "relative",
+                        width: "100%",
+                        height: "clamp(160px,18vw,220px)",
                         flexShrink: 0,
+                        overflow: "hidden",
                       }}>
-                      <span
-                        className="font-display"
+                      <Image
+                        src={m.foto}
+                        alt={m.name}
+                        fill
                         style={{
-                          fontSize: "clamp(1.1rem,1.8vw,1.5rem)",
-                          fontWeight: 700,
-                          color: "#eef1f6",
-                        }}>
-                        {m.initials}
-                      </span>
+                          objectFit: "cover",
+                          objectPosition: "center top",
+                          filter:
+                            isHovered && !isFlipped
+                              ? "brightness(1.05)"
+                              : "brightness(0.9)",
+                          transition: "filter .3s",
+                        }}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                      {/* Cyan overlay gradient unten */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: "60px",
+                          background:
+                            "linear-gradient(to bottom, transparent, rgba(15,22,24,.95))",
+                        }}
+                      />
                     </div>
 
-                    <h3
-                      className="font-display"
-                      style={{
-                        fontSize: "clamp(1rem,1.5vw,1.2rem)",
-                        fontWeight: 700,
-                        color: "#eef1f6",
-                        marginBottom: ".25rem",
-                        lineHeight: 1.2,
-                      }}>
-                      {m.name}
-                    </h3>
-                    <p
-                      className="font-mono"
-                      style={{
-                        fontSize: "clamp(.6rem,.72vw,.68rem)",
-                        color: "#5ce1e6",
-                        letterSpacing: ".08em",
-                        marginBottom: "clamp(.75rem,1.2vw,1.1rem)",
-                      }}>
-                      {m.role}
-                    </p>
-                    <p
-                      style={{
-                        color: "#8fa3a8",
-                        fontSize: "clamp(.78rem,.95vw,.88rem)",
-                        lineHeight: 1.6,
-                      }}>
-                      {m.spec}
-                    </p>
-
+                    {/* ── Text ── */}
                     <div
                       style={{
-                        marginTop: "auto",
-                        paddingTop: "1.25rem",
+                        padding: "clamp(1rem,1.8vw,1.5rem)",
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
+                        flexDirection: "column",
+                        flexGrow: 1,
                       }}>
-                      <span
+                      <h3
+                        className="font-display"
+                        style={{
+                          fontSize: "clamp(.95rem,1.4vw,1.15rem)",
+                          fontWeight: 700,
+                          color: "#eef1f6",
+                          marginBottom: ".25rem",
+                          lineHeight: 1.25,
+                        }}>
+                        {m.name}
+                      </h3>
+                      <p
                         className="font-mono"
                         style={{
-                          fontSize: "clamp(.58rem,.68vw,.65rem)",
-                          color: "rgba(92,225,230,.45)",
-                          letterSpacing: ".1em",
+                          fontSize: "clamp(.58rem,.7vw,.66rem)",
+                          color: "#5ce1e6",
+                          letterSpacing: ".08em",
+                          marginBottom: "clamp(.6rem,1vw,.9rem)",
                         }}>
-                        {m.exp}
-                      </span>
-                      <span
+                        {m.role}
+                      </p>
+                      <p
                         style={{
-                          fontSize: ".7rem",
-                          color: "rgba(143,163,168,.5)",
+                          color: "#8fa3a8",
+                          fontSize: "clamp(.78rem,.92vw,.875rem)",
+                          lineHeight: 1.6,
+                          flexGrow: 1,
                         }}>
-                        Umdrehen →
-                      </span>
+                        {m.spec}
+                      </p>
+                      <div
+                        style={{
+                          marginTop: "clamp(.75rem,1.2vw,1rem)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          flexShrink: 0,
+                        }}>
+                        <span
+                          className="font-mono"
+                          style={{
+                            fontSize: "clamp(.55rem,.65vw,.62rem)",
+                            color: "rgba(92,225,230,.45)",
+                            letterSpacing: ".1em",
+                          }}>
+                          {m.exp}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: ".7rem",
+                            color: "rgba(143,163,168,.45)",
+                          }}>
+                          Umdrehen →
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -257,34 +287,76 @@ export default function Team() {
                       inset: 0,
                       backfaceVisibility: "hidden",
                       transform: "rotateY(180deg)",
-                      padding: "clamp(1.75rem,2.5vw,2.5rem)",
+                      padding: "clamp(1.5rem,2.5vw,2.25rem)",
                       border: "1px solid rgba(92,225,230,.2)",
                       background: "rgba(20,101,116,.12)",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
+                      overflow: "hidden",
                     }}>
-                    <div>
-                      <p
-                        className="font-mono"
+                    {/* kleines Foto oben rechts */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: "1rem",
+                        marginBottom: "1.25rem",
+                      }}>
+                      <div
                         style={{
-                          fontSize: "clamp(.58rem,.68vw,.65rem)",
-                          color: "#5ce1e6",
-                          letterSpacing: ".12em",
-                          textTransform: "uppercase",
-                          marginBottom: "1rem",
+                          position: "relative",
+                          width: 56,
+                          height: 56,
+                          borderRadius: "50%",
+                          overflow: "hidden",
+                          flexShrink: 0,
+                          border: "2px solid rgba(92,225,230,.3)",
                         }}>
-                        Über {m.name.split(" ")[0]}
-                      </p>
-                      <p
-                        style={{
-                          color: "#eef1f6",
-                          lineHeight: 1.72,
-                          fontSize: "clamp(.82rem,1vw,.92rem)",
-                        }}>
-                        {m.bio}
-                      </p>
+                        <Image
+                          src={m.foto}
+                          alt={m.name}
+                          fill
+                          style={{
+                            objectFit: "cover",
+                            objectPosition: "center top",
+                          }}
+                          sizes="56px"
+                        />
+                      </div>
+                      <div>
+                        <p
+                          className="font-mono"
+                          style={{
+                            fontSize: "clamp(.56rem,.66vw,.63rem)",
+                            color: "#5ce1e6",
+                            letterSpacing: ".12em",
+                            textTransform: "uppercase",
+                            marginBottom: ".25rem",
+                          }}>
+                          Über {m.name.split(" ")[0]}
+                        </p>
+                        <p
+                          style={{
+                            color: "#eef1f6",
+                            fontSize: "clamp(.72rem,.82vw,.8rem)",
+                            fontWeight: 600,
+                          }}>
+                          {m.role}
+                        </p>
+                      </div>
                     </div>
+
+                    <p
+                      style={{
+                        color: "#eef1f6",
+                        lineHeight: 1.72,
+                        fontSize: "clamp(.8rem,.98vw,.9rem)",
+                        flexGrow: 1,
+                      }}>
+                      {m.bio}
+                    </p>
+
                     <a
                       href="#kontakt"
                       onClick={(e) => e.stopPropagation()}
@@ -295,10 +367,11 @@ export default function Team() {
                         color: "#5ce1e6",
                         textDecoration: "none",
                         fontWeight: 600,
-                        fontSize: "clamp(.78rem,.9vw,.88rem)",
+                        fontSize: "clamp(.76rem,.88vw,.86rem)",
                         borderBottom: "1px solid rgba(92,225,230,.3)",
                         paddingBottom: "2px",
                         width: "fit-content",
+                        marginTop: "1.25rem",
                       }}>
                       Kontakt aufnehmen →
                     </a>
@@ -309,13 +382,69 @@ export default function Team() {
           })}
         </div>
 
+        {/* ── Teamfoto ── */}
+        <div
+          style={{
+            marginTop: "clamp(3rem,5vw,5rem)",
+            position: "relative",
+            width: "100%",
+            height: "clamp(280px,35vw,520px)",
+            overflow: "hidden",
+            border: "1px solid rgba(92,225,230,.1)",
+          }}>
+          <Image
+            src="/images/team-image.jpg"
+            alt="Das Team von Steuer & Partner"
+            fill
+            style={{ objectFit: "cover", objectPosition: "center 20%" }}
+            sizes="100vw"
+          />
+          {/* Overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(to right, rgba(8,12,14,.7), rgba(8,12,14,.1), rgba(8,12,14,.4))",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "clamp(1.5rem,3vw,3rem)",
+              left: "clamp(1.5rem,4vw,4rem)",
+            }}>
+            <p
+              className="font-mono"
+              style={{
+                fontSize: "clamp(.6rem,.75vw,.7rem)",
+                color: "#5ce1e6",
+                letterSpacing: ".2em",
+                textTransform: "uppercase",
+                marginBottom: ".5rem",
+              }}>
+              Unser Team
+            </p>
+            <p
+              className="font-display"
+              style={{
+                fontSize: "clamp(1.2rem,2.5vw,2rem)",
+                fontWeight: 700,
+                color: "#eef1f6",
+                letterSpacing: "-0.02em",
+              }}>
+              Steuer & Partner · Frankfurt am Main
+            </p>
+          </div>
+        </div>
+
         {/* ── Bottom note ── */}
         <p
           style={{
             textAlign: "center",
-            marginTop: "clamp(2.5rem,4vw,4rem)",
-            color: "rgba(143,163,168,.45)",
-            fontSize: "clamp(.72rem,.85vw,.8rem)",
+            marginTop: "clamp(2rem,3vw,3rem)",
+            color: "rgba(143,163,168,.4)",
+            fontSize: "clamp(.68rem,.8vw,.75rem)",
             fontFamily: "DM Mono, monospace",
             letterSpacing: ".1em",
           }}>

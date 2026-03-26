@@ -4,59 +4,66 @@ import { useState } from "react";
 const ITEMS = [
   {
     nr: "01",
-    title: "Einkommensteuererklärung",
+    titel: "Einkommensteuererklärung",
     desc: "Präzise, fristgerecht und maximal optimiert. Wir holen für Sie das Beste heraus – vollständig digital und papierlos. Sie sparen dabei kostbare Zeit.",
     tag: "Privatpersonen",
     href: "/leistungen/einkommensteuer",
   },
   {
     nr: "02",
-    title: "Unternehmensbesteuerung",
+    titel: "Unternehmensbesteuerung",
     desc: "Von der GmbH bis zur GbR: Wir gestalten Ihre Steuerstruktur strategisch – für nachhaltiges Wachstum, nicht nur Compliance.",
     tag: "Unternehmen",
     href: "/leistungen/unternehmen",
   },
   {
     nr: "03",
-    title: "Buchhaltung & Jahresabschluss",
+    titel: "Buchhaltung & Jahresabschluss",
     desc: "Saubere Bücher, klare Zahlen. Monatliche Buchhaltung und Jahresabschlüsse, die echte Entscheidungen ermöglichen.",
     tag: "KMU",
     href: "/leistungen/buchhaltung",
   },
   {
     nr: "04",
-    title: "Lohnbuchhaltung",
+    titel: "Lohnbuchhaltung",
     desc: "Pünktliche Gehaltsabrechnungen, korrekte Abgaben, sichere Meldungen – vollständig von uns übernommen.",
     tag: "Unternehmen",
     href: "/leistungen/lohn",
   },
   {
     nr: "05",
-    title: "Steuergestaltung & Beratung",
+    titel: "Steuergestaltung & Beratung",
     desc: "Proaktive Gestaltungsberatung statt reaktiver Erklärung. Wir denken Ihre Steuersituation strategisch und langfristig.",
     tag: "Premium",
     href: "/leistungen/gestaltung",
   },
   {
     nr: "06",
-    title: "Existenzgründung",
+    titel: "Existenzgründung",
     desc: "Rechtsformwahl, Finanzplanung, steuerliche Optimierung von Tag 1. Weil der richtige Start alles entscheidet.",
     tag: "Freelancer",
     href: "/leistungen/gruendung",
   },
   {
     nr: "07",
-    title: "Erbschaft & Schenkung",
+    titel: "Erbschaft & Schenkung",
     desc: "Vermögensübertragungen steuerlich optimal gestalten. Wir minimieren Erbschaft- und Schenkungsteuer durch vorausschauende Planung und nutzen alle Freibeträge konsequent aus.",
     tag: "Privatpersonen",
     href: "/leistungen/erbschaft",
   },
   {
     nr: "08",
-    title: "Internationales Steuerrecht",
+    titel: "Internationales Steuerrecht",
     desc: "Grenzüberschreitende Tätigkeiten, Doppelbesteuerungsabkommen, Expatriates – wir navigieren Sie sicher durch die Komplexität des internationalen Steuerrechts.",
     tag: "Unternehmen",
     href: "/leistungen/international",
+  },
+  {
+    nr: "09",
+    titel: "Digitale Buchhaltung & DATEV",
+    desc: "Papierlose Buchhaltung, automatisierter Belegimport und direkte DATEV-Anbindung – wir modernisieren Ihre Finanzprozesse und sparen Ihnen wertvolle Zeit.",
+    tag: "KMU",
+    href: "/leistungen/digital",
   },
 ];
 
@@ -121,10 +128,10 @@ export default function Leistungen() {
 
         {/* ── Grid ── */}
         <div
+          className="leistungen-grid"
           style={{
             display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fill, minmax(min(100%, 340px), 1fr))",
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: "1px",
             background: "rgba(255,255,255,.04)",
             border: "1px solid rgba(255,255,255,.04)",
@@ -191,7 +198,7 @@ export default function Leistungen() {
                 </span>
               </div>
 
-              {/* title */}
+              {/* titel */}
               <h3
                 className="font-display"
                 style={{
@@ -202,7 +209,7 @@ export default function Leistungen() {
                   lineHeight: 1.22,
                   letterSpacing: "-0.01em",
                 }}>
-                {item.title}
+                {item.titel}
               </h3>
 
               {/* desc */}
@@ -279,6 +286,30 @@ export default function Leistungen() {
           </a>
         </div>
       </div>
+
+      {/* ── Responsive Grid ── */}
+      <style>{`
+  @media (max-width: 768px) {
+    .leistungen-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .leistungen-grid > div:last-child {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      margin-inline: auto;
+      width: 100%;
+    }
+  }
+  @media (max-width: 560px) {
+    .leistungen-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .leistungen-grid > div:last-child {
+      grid-column: unset !important;
+      max-width: 100% !important;
+    }
+  }
+`}</style>
     </section>
   );
 }
