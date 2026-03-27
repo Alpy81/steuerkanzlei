@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import NewsletterForm from "@/components/NewsletterForm";
 
 const POSTS = [
   {
@@ -31,16 +32,6 @@ const POSTS = [
       "Steueroptimierung durch smarte Gesellschaftsstrukturen – wann eine Holding-Lösung wirklich Sinn ergibt und welche Voraussetzungen Sie erfüllen müssen.",
     lesezeit: "8 min",
     href: "/blog/holdingstruktur-gmbh-co-kg",
-  },
-  {
-    nr: "04",
-    datum: "Dez 2024",
-    tag: "Privatpersonen",
-    title: "Steuererklärung 2024: Diese Fristen sollten Sie kennen",
-    excerpt:
-      "Wer muss wann einreichen? Welche Fristen gelten mit Steuerberater, welche ohne? Ein klarer Überblick für Arbeitnehmer, Rentner und Selbstständige.",
-    lesezeit: "5 min",
-    href: "/blog/fristen-steuererklaerung-2024",
   },
 ];
 
@@ -333,36 +324,7 @@ export default function Blog() {
               monatlich.
             </p>
           </div>
-          <a
-            href="#kontakt"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: ".5rem",
-              background: "linear-gradient(135deg,#146574,#1a7d90)",
-              color: "#eef1f6",
-              textDecoration: "none",
-              padding: "clamp(.7rem,1vw,.9rem) clamp(1.25rem,2vw,1.75rem)",
-              borderRadius: "3px",
-              fontSize: "clamp(.8rem,.95vw,.9rem)",
-              fontWeight: 600,
-              letterSpacing: ".04em",
-              border: "1px solid rgba(92,225,230,.2)",
-              transition: "transform .25s, box-shadow .25s",
-              whiteSpace: "nowrap",
-              flexShrink: 0,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-1px)";
-              e.currentTarget.style.boxShadow =
-                "0 8px 28px rgba(20,101,116,.45)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "none";
-              e.currentTarget.style.boxShadow = "none";
-            }}>
-            Jetzt anmelden →
-          </a>
+          <NewsletterForm />
         </div>
       </div>
     </section>

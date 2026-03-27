@@ -5,6 +5,7 @@ const NAV_LINKS = [
   { label: "Leistungen", href: "#leistungen" },
   { label: "Branchen", href: "#branchen" },
   { label: "Team", href: "#team" },
+  { label: "Kontakt", href: "#kontakt" },
   { label: "FAQ", href: "#faq" },
   { label: "Blog", href: "#blog" },
 ];
@@ -20,7 +21,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Lock body scroll when mobile menu is open */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -53,6 +53,7 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            gap: "clamp(1rem,2vw,2rem)",
           }}>
           {/* ── Logo ── */}
           <a
@@ -62,11 +63,12 @@ export default function Navbar() {
               display: "flex",
               flexDirection: "column",
               gap: "3px",
+              flexShrink: 0,
             }}>
             <span
               className="font-display"
               style={{
-                fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+                fontSize: "clamp(1.1rem,1.6vw,1.4rem)",
                 fontWeight: 700,
                 color: "#eef1f6",
                 letterSpacing: "-0.02em",
@@ -77,7 +79,7 @@ export default function Navbar() {
             <span
               className="font-mono"
               style={{
-                fontSize: "clamp(.55rem, .8vw, .65rem)",
+                fontSize: "clamp(.55rem,.65vw,.65rem)",
                 color: "#8fa3a8",
                 letterSpacing: ".18em",
                 textTransform: "uppercase",
@@ -88,12 +90,14 @@ export default function Navbar() {
 
           {/* ── Desktop Links ── */}
           <div
+            className="desktop-links"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "clamp(1.5rem, 2.5vw, 3rem)",
-            }}
-            className="desktop-links">
+              gap: "clamp(1.25rem,2vw,2.5rem)",
+              flexGrow: 1,
+              justifyContent: "center",
+            }}>
             {NAV_LINKS.map((link, i) => (
               <a
                 key={link.href}
@@ -102,16 +106,16 @@ export default function Navbar() {
                 onMouseLeave={() => setHoveredIdx(null)}
                 style={{
                   textDecoration: "none",
-                  fontSize: "clamp(.8rem, 1vw, .9rem)",
+                  fontSize: "clamp(.78rem,.9vw,.9rem)",
                   fontWeight: 500,
                   letterSpacing: ".04em",
                   color: hoveredIdx === i ? "#5ce1e6" : "#8fa3a8",
                   transition: "color .2s",
                   position: "relative",
                   paddingBottom: "2px",
+                  whiteSpace: "nowrap",
                 }}>
                 {link.label}
-                {/* underline accent */}
                 <span
                   style={{
                     position: "absolute",
@@ -125,35 +129,37 @@ export default function Navbar() {
                 />
               </a>
             ))}
-
-            {/* CTA */}
-            <a
-              href="#kontakt"
-              style={{
-                textDecoration: "none",
-                background: "linear-gradient(135deg,#146574,#1a7d90)",
-                color: "#eef1f6",
-                padding: "clamp(.5rem,.8vw,.7rem) clamp(1rem,1.5vw,1.5rem)",
-                borderRadius: "3px",
-                fontSize: "clamp(.78rem,.9vw,.875rem)",
-                fontWeight: 600,
-                letterSpacing: ".04em",
-                border: "1px solid rgba(92,225,230,.22)",
-                transition: "box-shadow .25s, transform .25s",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow =
-                  "0 6px 28px rgba(20,101,116,.55)";
-                e.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.transform = "none";
-              }}>
-              Termin buchen
-            </a>
           </div>
+
+          {/* ── CTA ── */}
+          <a
+            href="/termin"
+            className="desktop-links"
+            style={{
+              textDecoration: "none",
+              background: "linear-gradient(135deg,#146574,#1a7d90)",
+              color: "#eef1f6",
+              padding: "clamp(.5rem,.8vw,.7rem) clamp(1rem,1.2vw,1.5rem)",
+              borderRadius: "3px",
+              fontSize: "clamp(.75rem,.85vw,.875rem)",
+              fontWeight: 600,
+              letterSpacing: ".04em",
+              border: "1px solid rgba(92,225,230,.22)",
+              transition: "box-shadow .25s, transform .25s",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow =
+                "0 6px 28px rgba(20,101,116,.55)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.transform = "none";
+            }}>
+            Termin buchen
+          </a>
 
           {/* ── Burger (mobile) ── */}
           <button
@@ -207,8 +213,7 @@ export default function Navbar() {
           padding: "6rem 2rem 3rem",
           transform: menuOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform .4s cubic-bezier(.4,0,.2,1)",
-        }}
-        className="mobile-drawer">
+        }}>
         <nav style={{ display: "flex", flexDirection: "column", gap: "0" }}>
           {NAV_LINKS.map((link, i) => (
             <a
@@ -235,7 +240,7 @@ export default function Navbar() {
         </nav>
 
         <a
-          href="#kontakt"
+          href="/termin"
           onClick={() => setMenuOpen(false)}
           style={{
             marginTop: "2.5rem",
@@ -261,11 +266,10 @@ export default function Navbar() {
             color: "#8fa3a8",
             letterSpacing: ".12em",
           }}>
-          Steuer & Partner · Frankfurt am Main
+          Weber & Partner · Frankfurt am Main
         </p>
       </div>
 
-      {/* ── Responsive CSS ── */}
       <style>{`
         @media (max-width: 900px) {
           .desktop-links { display: none !important; }

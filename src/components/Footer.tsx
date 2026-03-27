@@ -142,6 +142,14 @@ export default function Footer() {
                     label: "XING",
                     path: "M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm-1.4 11.3L4.8 8.8l2.1-3.6h1.8L6.6 8.8l1.8 2.5H6.6Zm5.2-7.5-3.3 5.7 2 3.5H9.7l-2-3.5 3.3-5.7h1.8Z",
                   },
+                  {
+                    label: "Facebook",
+                    path: "M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm2 5.5h-1c-.4 0-.5.2-.5.6V7h1.5l-.2 1.5H8.5V13h-2V8.5H5.5V7h1V6c0-1.3.8-2 2-2 .6 0 1.5.1 1.5.1V5.5Z",
+                  },
+                  {
+                    label: "Instagram",
+                    path: "M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.5 4.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5ZM8 5.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm0 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-3-3h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2Zm0 1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V5.5a1 1 0 0 0-1-1H5Z",
+                  },
                 ].map((s) => (
                   <a
                     key={s.label}
@@ -218,13 +226,14 @@ export default function Footer() {
                     style={{
                       display: "flex",
                       gap: ".6rem",
-                      alignItems: "flex-start",
+                      alignItems: "center",
                     }}>
                     <span
                       style={{
                         fontSize: ".8rem",
                         flexShrink: 0,
-                        marginTop: "1px",
+                        lineHeight: 1,
+                        marginTop: "2px",
                       }}>
                       {item.icon}
                     </span>
