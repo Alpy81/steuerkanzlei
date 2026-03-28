@@ -40,8 +40,8 @@ export default function Navbar() {
           height: scrolled ? "64px" : "80px",
           transition:
             "height .35s ease, background .35s ease, border-color .35s ease, backdrop-filter .35s ease",
-          background: scrolled ? "rgba(8,12,14,.92)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px) saturate(1.4)" : "none",
+          background: scrolled ? "rgba(8,12,14,.92)" : "rgba(8,12,14,.75)",
+          backdropFilter: scrolled ? "blur(20px) saturate(1.4)" : "blur(8px)",
           borderBottom: `1px solid ${
             scrolled ? "rgba(92,225,230,.1)" : "transparent"
           }`,
